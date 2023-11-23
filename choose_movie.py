@@ -2,7 +2,7 @@ import csv
 import os
 import tkinter as tk
 from tkinter import messagebox
-
+from choose_seat import *
 def load_movies():
  with open('movielist.csv', 'r') as csvfile:
      reader = csv.DictReader(csvfile)
@@ -10,15 +10,19 @@ def load_movies():
      print(movies)
  return movies
 
-def confirm_selection():
- global movie_vars
- selected_movie = movie_vars.get()
- messagebox.showinfo("Confirmation", f"You selected: {selected_movie}")
+def confirm_selection(window, username, password, movie_vars):
+    print(movie_vars)
+    selected_movie = movie_vars.get()
+    print(selected_movie)
+    
+    messagebox.showinfo("Confirmation", f"You selected: {selected_movie}")
+    window.destroy()
+    choose_seat(selected_movie, username ,password)
 
-
-def create_gui():
+def choose_movie(username, password):
  global movie_vars
  window = tk.Tk()
+ 
  window.title("Movie Selection")
  window.geometry("300x400")
 
@@ -31,10 +35,10 @@ def create_gui():
      rb = tk.Radiobutton(frame, text=movie, variable=movie_vars, value=movie)
      rb.pack(anchor=tk.W)
 
- confirm_button = tk.Button(window, text="Confirm", command=confirm_selection)
+ confirm_button = tk.Button(window, text="Confirm", command=lambda: confirm_selection(window, username, password, movie_vars))
  confirm_button.pack(pady=20)
 
  window.mainloop()
-
+ return movie_vars
 if __name__ == "__main__":
- create_gui()
+ choose_movie('x','x')
