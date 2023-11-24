@@ -1,10 +1,4 @@
-<<<<<<< HEAD
 username,password,tiket_film,jumlah
 user1,password1,barbie,"(10, 1)"
 user1,password1,barbie,"(10, 2)"
-=======
-username,password,tiket_film,jumlah
-user1,password1,barbie,"(10, 1)"
-user1,password1,barbie,"(10, 2)"
 rico,rico
->>>>>>> fefec78e74dee2a9006154222e4e49a4c30377c5

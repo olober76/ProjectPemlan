@@ -1,47 +1,85 @@
 import csv
+import tkinter as tk
+from tkinter import messagebox
+
+def login_window():
+   login_window = tk.Tk()
+   login_window.title("Login System")
+
+   username_label = tk.Label(login_window, text="Username")
+   username_label.pack()
+
+   username_entry = tk.Entry(login_window)
+   username_entry.pack()
+
+   password_label = tk.Label(login_window, text="Password")
+   password_label.pack()
+
+   password_entry = tk.Entry(login_window, show="*")
+   password_entry.pack()
+
+   def login():
+       username = username_entry.get()
+       password = password_entry.get()
+       with open("users.csv") as csvfile:
+           database = csv.DictReader(csvfile)
+           for row in database:
+               if row["username"] == username and row["password"] == password:
+                  messagebox.showinfo("Login", "Login successful!")
+                  login_window.destroy()
+                  main_window()
+                  break
+           else:
+               messagebox.showerror("Login", "Username or password incorrect. Please try again.")
+
+   login_button = tk.Button(login_window, text="Login", command=login)
+   login_button.pack()
+
+   login_window.mainloop()
+
+def main_window():
+  main_window = tk.Tk()
+  main_window.title("Main System")
+
+  login_button = tk.Button(main_window, text="Login", command=login_window)
+  login_button.pack()
+
+  register_button = tk.Button(main_window, text="Register", command=register_window)
+  register_button.pack()
+
+  main_window.mainloop()
 
 
-def login():
-  print("Selamat datang di sistem login")
-  with open("users.csv") as csvfile:
-    database = csv.DictReader(csvfile)
-    loggedin = False
-    while not loggedin:
-      username = input("Masukkan username: ")
-      password = input("Masukkan password: ")
-      for row in database:
-        if row["username"] == username and row["password"] == password:
-          print("Login berhasil!")
-          loggedin = True
-          return username, password
-      if not loggedin:
-        print("Username atau password salah. Silakan coba lagi.")
-        while True:
-          print("1. Login Kembali")
-          print("2. Register")
-          choice = input()
-          if choice == "1":
-            login()
-          elif choice == "2":
-            register()
-          else:
-            break
+def register_window():
+   register_window = tk.Tk()
+   register_window.title("Register System")
 
-    # Lanjutkan dengan program utama setelah login berhasil
+   username_label = tk.Label(register_window, text="Username")
+   username_label.pack()
 
+   username_entry = tk.Entry(register_window)
+   username_entry.pack()
 
-def register():
-  print("Silakan daftar untuk membuat akun baru")
-  with open("users.csv", "a", newline="") as csvfile:
-    fieldnames = ["username", "password"]
-    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-    while True:
-      username = input("Masukkan username baru: ")
-      password = input("Masukkan password baru: ")
-      if not any(row["username"] == username
-                 for row in csv.DictReader(open("users.csv"))):
-        writer.writerow({"username": username, "password": password})
-        print("Akun berhasil dibuat!")
-        break
-      else:
-        print("Username sudah digunakan. Silakan coba lagi.")
+   password_label = tk.Label(register_window, text="Password")
+   password_label.pack()
+
+   password_entry = tk.Entry(register_window, show="*")
+   password_entry.pack()
+
+   def register():
+       username = username_entry.get()
+       password = password_entry.get()
+       with open("users.csv", "a", newline="") as csvfile:
+           fieldnames = ["username", "password"]
+           writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+           writer.writerow({"username": username, "password": password})
+           messagebox.showinfo("Register", "Account created successfully!")
+           register_window.destroy()
+           login_window()
+
+   register_button = tk.Button(register_window, text="Register", command=register)
+   register_button.pack()
+
+   register_window.mainloop()
+
+main_window()
