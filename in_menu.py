@@ -5,14 +5,17 @@ from tkinter import messagebox
 from choose_seat import *
 from choose_movie import *
 
-def confirm_selection(username, password):
+def confirm_selection(window, username, password):
  global selected_option
  option = selected_option.get()
+ 
  messagebox.showinfo("Confirmation", f"You selected: {option}")
+ window.destroy()
  if option == "choose_movie":
-    choose_movie(username,password)
+   choose_movie(username,password)
  if option == "look_at_ticket":
     pass
+ 
  ##belum seleesai ya
 def menu(username, password):
     global selected_option
@@ -31,9 +34,9 @@ def menu(username, password):
     rb2 = tk.Radiobutton(frame, text="Look at Ticket List", variable=selected_option, value="look_ticket_list")
     rb2.pack()
 
-    confirm_button = tk.Button(window, text="Confirm", command=lambda: confirm_selection(username, password))
+    confirm_button = tk.Button(window, text="Confirm", command=lambda: confirm_selection(window,username, password))
     confirm_button.pack(pady=20)
     
     window.mainloop()
-
-menu('x','x')
+    
+#menu('x','x')

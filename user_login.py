@@ -13,7 +13,7 @@ def login():
         if row["username"] == username and row["password"] == password:
           print("Login berhasil!")
           loggedin = True
-          break
+          return username, password
       if not loggedin:
         print("Username atau password salah. Silakan coba lagi.")
         while True:

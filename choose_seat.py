@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import messagebox
 
 def choose_seat(selected_movie, username, password):
+    print(selected_movie)
     filename = '{}.csv'.format(selected_movie)
     with open(filename, 'r') as file:
         reader = csv.reader(file)
