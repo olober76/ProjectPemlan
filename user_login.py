@@ -1,10 +1,11 @@
 import csv
 import tkinter as tk
 from tkinter import messagebox
+from PIL import Image, ImageTk
 
 def login_window():
    login_window = tk.Tk()
-   login_window.title("Login System")
+   login_window.title("Login Layar Tekkom 21")
 
    username_label = tk.Label(login_window, text="Username")
    username_label.pack()
@@ -39,7 +40,22 @@ def login_window():
 
 def main_window():
   main_window = tk.Tk()
-  main_window.title("Main System")
+  main_window.title("Layar Tekkom 21")
+
+  img = Image.open("../ProjectPemlan/images/main_system.jpg")
+  imgtk = ImageTk.PhotoImage(img)
+  width, height = 200, 200
+  img = img.resize((width, height),Image.Resampling.LANCZOS )
+  imgtk = ImageTk.PhotoImage(img)
+  
+  title_label = tk.Label(main_window, text="BIOSKOP TEKKOM", font=("Bebas Nueue", 16, "bold"))
+  title_label.pack()
+
+  
+  img_label = tk.Label(main_window, image=imgtk, )
+  img_label.image = imgtk
+  img_label.pack()
+
 
   login_button = tk.Button(main_window, text="Login", command=login_window)
   login_button.pack()
@@ -48,11 +64,12 @@ def main_window():
   register_button.pack()
 
   main_window.mainloop()
+  
 
 
 def register_window():
    register_window = tk.Tk()
-   register_window.title("Register System")
+   register_window.title("Register Layar Tekkom 21")
 
    username_label = tk.Label(register_window, text="Username")
    username_label.pack()
