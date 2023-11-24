@@ -2,6 +2,7 @@ import csv
 import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
+from choose_movie import *
 
 def login_window():
    login_window = tk.Tk()
@@ -28,8 +29,8 @@ def login_window():
                if row["username"] == username and row["password"] == password:
                   messagebox.showinfo("Login", "Login successful!")
                   login_window.destroy()
-                  main_window()
-                  break
+                  # main_window.destroy()
+                  choose_movie(username, password)
            else:
                messagebox.showerror("Login", "Username or password incorrect. Please try again.")
 
