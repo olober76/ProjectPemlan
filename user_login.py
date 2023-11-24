@@ -29,8 +29,9 @@ def login_window():
                if row["username"] == username and row["password"] == password:
                   messagebox.showinfo("Login", "Login successful!")
                   login_window.destroy()
-                  # main_window.destroy()
-                  choose_movie(username, password)
+                  main_window()
+                  
+                  break
            else:
                messagebox.showerror("Login", "Username or password incorrect. Please try again.")
 
