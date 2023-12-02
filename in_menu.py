@@ -1,20 +1,33 @@
-import csv
-import os
 import tkinter as tk
+import csv
 from tkinter import messagebox
-from choose_seat import *
-from choose_movie import *
+from choose_movie import choose_movie_window
+import time
 
+def see_ticket_list(username, password):
+
+  with open('users.csv', 'r') as csvfile:
+    reader = csv.DictReader(csvfile)
+    for row in reader:
+      if row['username'] == username and row['password'] == password:
+        print(row['tiket_film'], row['jumlah'])
+        messagebox.showinfo("Ticket List", f"Movie: {row['tiket_film']}\nSeat: {row['jumlah']}")
+        break
+    else:
+      messagebox.showerror("Ticket List", "You haven't booked any tickets yet!")
 def confirm_selection(window, username, password):
  global selected_option
  option = selected_option.get()
  
  messagebox.showinfo("Confirmation", f"You selected: {option}")
- window.destroy()
+ 
  if option == "choose_movie":
-   choose_movie(username,password)
- if option == "look_at_ticket":
-    pass
+   window.destroy()
+   choose_movie_window(username,password)
+ if option == "look_ticket_list":
+   #add see ticket list
+
+   see_ticket_list(username, password)
  
  ##belum seleesai ya
 def menu(username, password):

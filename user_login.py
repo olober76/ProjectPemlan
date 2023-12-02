@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
 from choose_movie import *
-
+from in_menu import *
 def login_window():
    login_window = tk.Tk()
    login_window.title("Login Layar Tekkom 21")
@@ -29,9 +29,7 @@ def login_window():
                if row["username"] == username and row["password"] == password:
                   messagebox.showinfo("Login", "Login successful!")
                   login_window.destroy()
-                  main_window()
-                  
-                  break
+                  menu(username, password)
            else:
                messagebox.showerror("Login", "Username or password incorrect. Please try again.")
 
@@ -41,31 +39,37 @@ def login_window():
    login_window.mainloop()
 
 def main_window():
-  main_window = tk.Tk()
-  main_window.title("Layar Tekkom 21")
+    main_window = tk.Tk()
+    main_window.title("Layar Tekkom 21")
 
-  img = Image.open("../ProjectPemlan/images/main_system.jpg")
-  imgtk = ImageTk.PhotoImage(img)
-  width, height = 200, 200
-  img = img.resize((width, height),Image.Resampling.LANCZOS )
-  imgtk = ImageTk.PhotoImage(img)
-  
-  title_label = tk.Label(main_window, text="BIOSKOP TEKKOM", font=("Bebas Nueue", 16, "bold"))
-  title_label.pack()
+    img = Image.open("../ProjectPemlan/images/main_system.jpg")
+    imgtk = ImageTk.PhotoImage(img)
+    width, height = 200, 200
+    img = img.resize((width, height), Image.Resampling.LANCZOS)
+    imgtk = ImageTk.PhotoImage(img)
 
-  
-  img_label = tk.Label(main_window, image=imgtk, )
-  img_label.image = imgtk
-  img_label.pack()
+    title_label = tk.Label(main_window, text="BIOSKOP TEKKOM", font=("Bebas Nueue", 16, "bold"))
+    title_label.pack()
 
+    img_label = tk.Label(main_window, image=imgtk)
+    img_label.image = imgtk
+    img_label.pack()
 
-  login_button = tk.Button(main_window, text="Login", command=login_window)
-  login_button.pack()
+    def open_login_window():
+        main_window.destroy()
+        login_window()
 
-  register_button = tk.Button(main_window, text="Register", command=register_window)
-  register_button.pack()
+    def open_register_window():
+        main_window.destroy()
+        register_window()
 
-  main_window.mainloop()
+    login_button = tk.Button(main_window, text="Login", command=open_login_window)
+    login_button.pack()
+
+    register_button = tk.Button(main_window, text="Register", command=open_register_window)
+    register_button.pack()
+
+    main_window.mainloop()
   
 
 
@@ -85,6 +89,7 @@ def register_window():
    password_entry = tk.Entry(register_window, show="*")
    password_entry.pack()
 
+
    def register():
        username = username_entry.get()
        password = password_entry.get()
@@ -101,4 +106,3 @@ def register_window():
 
    register_window.mainloop()
 
-main_window()

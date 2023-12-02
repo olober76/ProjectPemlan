@@ -2,7 +2,7 @@ import csv
 import tkinter as tk
 from tkinter import messagebox
 
-def choose_seat(selected_movie, username, password):
+def choose_seat_window(selected_movie, username, password):
     print(selected_movie)
     filename = '{}.csv'.format(selected_movie)
     with open(filename, 'r') as file:
@@ -26,6 +26,8 @@ def choose_seat(selected_movie, username, password):
                 save_data(selected_movie, seats)
                 save_cart(cart, selected_movie, username, password)  # Simpan keranjang ke file CSV
                 root.destroy()
+                messagebox.showinfo("Confirmation", "Your seat has been booked!")
+       
 
         confirm_button = tk.Button(root, text="Confirm", command=save_and_confirm)
         confirm_button.grid(row=len(seats) + 1, columnspan=len(seats[0]))  # Place the Confirm button below the seats
@@ -34,7 +36,7 @@ def choose_seat(selected_movie, username, password):
             if messagebox.askokcancel("Confirm", "Are you sure you want to close? Changes will be saved."):
                 root.destroy()
                 save_data(selected_movie, seats)
-
+          
         root.protocol("WM_DELETE_WINDOW", on_closing)
         root.mainloop()
 
@@ -56,7 +58,7 @@ def book_seat(seats, selected_movie, seat_buttons, i, j, cart):
     seat_buttons[i][j].config(text='X')  # Update the button's text
     cart.append((i, j))  # Tambahkan informasi kursi ke keranjang
 
-if __name__ == "__main__":
-    username = "user1"  # Contoh username
-    password = "password1"  # Contoh password
-    choose_seat('barbie', username, password)
+# if __name__ == "__main__":
+#     username = "user1"  # Contoh username
+#     password = "password1"  # Contoh password
+#     choose_seat('barbie', username, password)
