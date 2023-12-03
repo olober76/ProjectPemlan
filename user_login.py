@@ -41,10 +41,11 @@ def login_window():
 def main_window():
     main_window = tk.Tk()
     main_window.title("Layar Tekkom 21")
+    main_window.geometry('600x400')
 
     img = Image.open("../ProjectPemlan/images/main_system.jpg")
     imgtk = ImageTk.PhotoImage(img)
-    width, height = 200, 200
+    width, height = 300, 300
     img = img.resize((width, height), Image.Resampling.LANCZOS)
     imgtk = ImageTk.PhotoImage(img)
 

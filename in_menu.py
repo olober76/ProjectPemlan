@@ -4,17 +4,31 @@ from tkinter import messagebox
 from choose_movie import choose_movie_window
 import time
 
-def see_ticket_list(username, password):
+# def see_ticket_list(username, password):
+#   with open('users.csv', 'r') as csvfile:
+#     reader = csv.DictReader(csvfile)
+#     for row in reader:
+#       if row['username'] == username and row['password'] == password:
+#         print(row['tiket_film'], row['jumlah'])
+#         messagebox.showinfo("Ticket List", f"Movie: {row['tiket_film']}\nSeat: {row['jumlah']}")
+#         break
+#     else:
+#       messagebox.showerror("Ticket List", "You haven't booked any tickets yet!")
 
-  with open('users.csv', 'r') as csvfile:
-    reader = csv.DictReader(csvfile)
-    for row in reader:
-      if row['username'] == username and row['password'] == password:
-        print(row['tiket_film'], row['jumlah'])
-        messagebox.showinfo("Ticket List", f"Movie: {row['tiket_film']}\nSeat: {row['jumlah']}")
-        break
-    else:
-      messagebox.showerror("Ticket List", "You haven't booked any tickets yet!")
+def see_ticket_list(username, password):
+ with open('users.csv', 'r') as csvfile:
+   reader = csv.DictReader(csvfile)
+   tickets = []
+   for row in reader:
+     if row['username'] == username and row['password'] == password:
+       tickets.append(f"Movie: {row['tiket_film']}\nSeat: {row['jumlah']}")
+   if not tickets:
+     messagebox.showerror("Ticket List", "You haven't booked any tickets yet!")
+   else:
+     messagebox.showinfo("Ticket List", "\n".join(tickets))
+
+
+
 def confirm_selection(window, username, password):
  global selected_option
  option = selected_option.get()
